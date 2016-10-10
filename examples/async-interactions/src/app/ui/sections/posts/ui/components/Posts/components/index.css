@@ -1,0 +1,40 @@
+.posts {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+  margin-top: 30px;
+}
+
+.post {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1;
+  position: relative;
+  margin: 0 0 20px;
+}
+
+.post-id {
+  display: block;
+  position: absolute;
+  left: -30px;
+  padding-right: 20px;
+  color: #aaa;
+}
+
+.post-title {
+  flex: 1;
+}
+
+.post-edit-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-edit-button {
+  padding: 3px 5px;
+  border: 1px solid #aaa;
+  background-color: transparent;
+  color: #aaa;
+  font-size: .7em;
+  text-decoration: none;
+}
