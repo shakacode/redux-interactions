@@ -1,0 +1,14 @@
+.status-spinner-wrapper {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.status .sk-spinner .sk-chasing-dots {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.status .sk-spinner .sk-chasing-dots .sk-dot1,
+.status .sk-spinner .sk-chasing-dots .sk-dot2 {
+  background-color: #c87f1d !important;
+}

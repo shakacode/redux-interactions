@@ -1,0 +1,16 @@
+[ignore]
+<PROJECT_ROOT>/build/.*
+
+[libs]
+./flow-typed/
+
+[options]
+emoji=true
+
+module.system=node
+module.use_strict=true
+
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(1[0-6]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*www[a-z,_]*\\)?)\\)
