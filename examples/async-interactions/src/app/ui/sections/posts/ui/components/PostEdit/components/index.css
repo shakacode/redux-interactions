@@ -1,0 +1,64 @@
+/* Form */
+
+.form {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1;
+  margin-top: 30px;
+}
+
+.form-field,
+.submit-button,
+.cancel-button {
+  display: flex;
+  padding: 10px 12px;
+  font-size: 1em;
+}
+
+.post-title-field {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.submit-button-wrapper {
+  position: relative;
+  margin-right: 10px;
+}
+
+.submit-button {
+  border-color: #29d;
+  background-color: #29d;
+  color: #fff;
+}
+
+.submit-button-processing {
+  color: transparent;
+}
+
+.cancel-button {
+  border: 1px solid #aaa;
+  background-color: transparent;
+  color: #aaa;
+  text-decoration: none;
+}
+
+
+/* Spinner */
+
+.post-edit-spinner-wrapper {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.post-edit-spinner-wrapper .sk-spinner .sk-chasing-dots {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.post-edit-spinner-wrapper .sk-spinner .sk-chasing-dots .sk-dot1,
+.post-edit-spinner-wrapper .sk-spinner .sk-chasing-dots .sk-dot2 {
+  background-color: #fff !important;
+}

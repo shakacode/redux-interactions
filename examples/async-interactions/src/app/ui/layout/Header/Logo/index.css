@@ -1,0 +1,12 @@
+.logo {
+  display: flex;
+  flex: 1;
+  font-size: 1.2em;
+}
+
+.logo-link {
+  margin: -5px;
+  padding: 5px;
+  color: inherit;
+  text-decoration: none;
+}
