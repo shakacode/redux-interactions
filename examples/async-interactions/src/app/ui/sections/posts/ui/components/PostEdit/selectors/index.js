@@ -1,13 +1,13 @@
 import { createStructuredSelector } from 'reselect';
 
-import { postIdSelector } from './postIdSelector';
-import { titleSelector } from './titleSelector';
-import { isSubmittableSelector } from './isSubmittableSelector';
-import { isProcessingSelector } from './storeDataSelector';
+import { getPostId } from './getPostId';
+import { getTitle } from './getTitle';
+import { getSubmittableStatus } from './getSubmittableStatus';
+import { getProcessingStatus } from './getLeafData';
 
 export default createStructuredSelector({
-  postId: postIdSelector,
-  title: titleSelector,
-  isSubmittable: isSubmittableSelector,
-  isProcessing: isProcessingSelector,
+  postId: getPostId,
+  title: getTitle,
+  isSubmittable: getSubmittableStatus,
+  isProcessing: getProcessingStatus,
 });

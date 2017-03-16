@@ -1,14 +1,14 @@
 import api from '../../../../../../../../api';
 
-import state from '../state';
+import initialState from '../state';
 
-import { formStateSelector, isProcessingSelector } from '../selectors/storeDataSelector';
-import { isSubmittableSelector } from '../selectors/isSubmittableSelector';
+import { getFormState, getProcessingStatus } from '../selectors/getLeafData';
+import { getSubmittableStatus } from '../selectors/getSubmittableStatus';
 
 
-const UPDATE_REQUESTED = 'POST_EDIT # SERVER_STATE_UPDATE_REQUESTED';
-const UPDATE_SUCCEEDED = 'POST_EDIT # SERVER_STATE_UPDATE_SUCCEEDED';
-const UPDATE_FAILED = 'POST_EDIT # SERVER_STATE_UPDATE_FAILED';
+const UPDATE_REQUESTED = 'POST_EDIT: SERVER_STATE_UPDATE_REQUESTED';
+const UPDATE_SUCCEEDED = 'POST_EDIT: SERVER_STATE_UPDATE_SUCCEEDED';
+const UPDATE_FAILED = 'POST_EDIT: SERVER_STATE_UPDATE_FAILED';
 
 // --- Request
 
@@ -32,16 +32,20 @@ const successAction = (postId, nextServerData) => ({
   nextServerData,
 });
 
-// Action handler -> local
+// Action handlers
 const onSuccess = {
-  [UPDATE_SUCCEEDED]: () => state,
-};
+  [UPDATE_SUCCEEDED]: [
+    // 1. resetting ui state
+    () => initialState,
 
-// Action handler -> data/postsStore: update entity in posts data store
-const updatePostOnEdit = {
-  [UPDATE_SUCCEEDED]:
-    (state, { postId, nextServerData }) =>
-      state.mergeIn(['entities', postId], nextServerData),
+    // 2. updating data in the entities leaf
+    {
+      leaf: ['entities', 'posts'],
+      reduce:
+        (state, { postId, nextServerData }) =>
+          state.mergeIn(['entities', postId], nextServerData),
+    }
+  ],
 };
 
 
@@ -68,14 +72,14 @@ export const updateServerState = postId => (dispatch, getState) => {
   const state = getState();
   const props = { postId };
 
-  const isSubmittable = isSubmittableSelector(state, props);
-  const isProcessing = isProcessingSelector(state);
+  const isSubmittable = getSubmittableStatus(state, props);
+  const isProcessing = getProcessingStatus(state);
 
   if (!isSubmittable || isProcessing) return;
 
   dispatch(requestAction());
 
-  const nextServerData = formStateSelector(state);
+  const nextServerData = getFormState(state);
 
   api
     .patchPost(postId, nextServerData)
@@ -96,5 +100,3 @@ export const onServerStateUpdate = {
   ...onSuccess,
   ...onFailure,
 };
-
-export { updatePostOnEdit };

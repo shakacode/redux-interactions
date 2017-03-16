@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { postsSelector } from '../../../../../../../data/posts/selectors';
+import { postsSelector } from '../../../../../../../entities/posts/selectors';
 
 export default createSelector(
   postsSelector,

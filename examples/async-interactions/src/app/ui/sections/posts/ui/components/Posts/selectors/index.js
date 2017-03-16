@@ -1,7 +1,7 @@
 import { createStructuredSelector } from 'reselect';
 
-import postsSelector from './postsSelector';
+import { getPostsList } from '../../../../../../../entities/posts/selectors';
 
 export default createStructuredSelector({
-  posts: postsSelector,
+  posts: getPostsList,
 });

@@ -1,9 +1,9 @@
 import { createStructuredSelector } from 'reselect';
 
-import { isFetchingSelector } from '../../../../sections/posts/ui/selectors/isFetchingSelector';
-import { isProcessingSelector } from '../../../../sections/posts/ui/components/PostEdit/selectors/storeDataSelector';
+import { getFetchingStatus } from '../../../../sections/posts/ui/selectors/getFetchingStatus';
+import { getProcessingStatus } from '../../../../sections/posts/ui/components/PostEdit/selectors/getLeafData';
 
 export default createStructuredSelector({
-  isFetching: isFetchingSelector,
-  isProcessing: isProcessingSelector,
+  isFetching: getFetchingStatus,
+  isProcessing: getProcessingStatus,
 });

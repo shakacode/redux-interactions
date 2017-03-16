@@ -1,4 +1,4 @@
-import { createReducer } from '../../../../../../../utils';
+import { createLeaf } from 'redux-tree';
 
 import state from './state';
 
@@ -7,7 +7,7 @@ import { onFormStateUpdate } from './interactions/formStateUpdate';
 import { onServerStateUpdate } from './interactions/serverStateUpdate';
 
 
-export default createReducer(state, {
+export default createLeaf(state, {
   ...onFormStateReset,
   ...onFormStateUpdate,
   ...onServerStateUpdate,

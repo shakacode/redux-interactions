@@ -1,4 +1,4 @@
-const FORM_STATE_UPDATE = 'POST_EDIT # FORM_STATE_UPDATE';
+const FORM_STATE_UPDATE = 'POST_EDIT: FORM_STATE_UPDATE';
 
 // Action creator
 export const updateFormState = title => ({

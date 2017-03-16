@@ -1,7 +1,7 @@
 import { createStructuredSelector } from 'reselect';
 
-import { isFetchingSelector } from './isFetchingSelector';
+import { getFetchingStatus } from './getFetchingStatus';
 
 export default createStructuredSelector({
-  isFetching: isFetchingSelector,
+  isFetching: getFetchingStatus,
 });

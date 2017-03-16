@@ -1,6 +1,12 @@
+/**
+ * THIS FILE IS JUST A PLACEHOLDER
+ * SEE `POSTS` FOLDER FOR COMPLETE EXAMPLE
+ *
+ */
+
 import { Map, OrderedSet, Record } from 'immutable';
 
-export const Post = Record({
+export const Work = Record({
   id: null,
   title: null,
 });

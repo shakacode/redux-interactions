@@ -4,12 +4,12 @@ import { normalize } from 'normalizr';
 import api from '../../../../../../api';
 import { normalizeEntities } from '../../../../../../utils';
 
-import * as schema from '../../../../../data/schema';
-import { Post } from '../../../../../data/posts/state';
+import * as schema from '../../../../../entities/schema';
+import { Post } from '../../../../../entities/posts/entity';
 
-const FETCH_REQUESTED = 'POSTS_FETCH # REQUESTED';
-const FETCH_SUCCEEDED = 'POSTS_FETCH # SUCCEEDED';
-const FETCH_FAILED = 'POSTS_FETCH # FAILED';
+const FETCH_REQUESTED = 'POSTS_FETCH: REQUESTED';
+const FETCH_SUCCEEDED = 'POSTS_FETCH: SUCCEEDED';
+const FETCH_FAILED = 'POSTS_FETCH: FAILED';
 
 // --- Request
 
@@ -33,18 +33,20 @@ const successAction = (index, entities) => ({
   entities,
 });
 
-// Action handler -> local
+// Action handlers
 const onSuccess = {
-  [FETCH_SUCCEEDED]:
-    state =>
-      state.set('status', 'ready'),
-};
+  [FETCH_SUCCEEDED]: [
+    // 1. change status in the ui store
+    state => state.set('status', 'ready'),
 
-// Action handler -> data/postsStore: merging fetched data into posts data store
-const mergePostsOnFetch = {
-  [FETCH_SUCCEEDED]:
-    (state, { index, entities }) =>
-      state.merge({ index, entities }),
+    // 2. merge posts to the entities leaf
+    {
+      leaf: ['entities', 'posts'],
+      reduce:
+        (state, { index, entities }) =>
+          state.merge({ index, entities }),
+    },
+  ],
 };
 
 
@@ -95,5 +97,3 @@ export const onPostsFetch = {
   ...onSuccess,
   ...onFailure,
 };
-
-export { mergePostsOnFetch };

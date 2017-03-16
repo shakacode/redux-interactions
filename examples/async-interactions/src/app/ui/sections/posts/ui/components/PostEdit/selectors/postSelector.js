@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { storeSelector as postsStoreSelector } from '../../../../../../../data/posts/selectors';
+import { storeSelector as postsStoreSelector } from '../../../../../../../entities/posts/selectors';
 import { postIdSelector } from './postIdSelector';
 
 export const postSelector = createSelector(
