@@ -4,7 +4,7 @@ import React from 'react';
 import Spinner from 'react-spinkit';
 import classNames from 'classnames';
 
-import type { PostsList } from '../../data/posts/types';
+import type { PostsList } from '../../entities/posts/entity';
 
 import './index.css';
 

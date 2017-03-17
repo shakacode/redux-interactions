@@ -1,10 +1,10 @@
 /* @flow */
 
-import type { StoreState } from '../state';
+import type { LeafState } from '../state';
 import type { ActionHandler } from '../../types';
 
 
-const TITLE_INPUT_UPDATE: 'POST_FORM # TITLE_INPUT_UPDATE' = 'POST_FORM # TITLE_INPUT_UPDATE';
+const TITLE_INPUT_UPDATE: 'POST_FORM: TITLE_INPUT_UPDATE' = 'POST_FORM: TITLE_INPUT_UPDATE';
 
 // Action creator
 type Action = {|
@@ -20,7 +20,7 @@ export const updateTitleInput = (nextTitle: string): Action => ({
 
 // Action handler
 type OnTitleInputUpdate = {
-  [typeof TITLE_INPUT_UPDATE]: ActionHandler<StoreState, Action>,
+  [typeof TITLE_INPUT_UPDATE]: ActionHandler<LeafState, Action>,
 };
 
 export const onTitleInputUpdate: OnTitleInputUpdate = {

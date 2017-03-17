@@ -29,6 +29,7 @@
     "react-spinkit": "^2.0.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "redux-tree": "^0.3.2",
     "reselect": "^2.5.4"
   }
 }

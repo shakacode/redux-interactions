@@ -2,15 +2,15 @@
 
 import { Record } from 'immutable';
 
-type StoreShape = {|
+type StateShape = {|
   postId: number | null,
   titleInput: string | null,
   isProcessing: boolean,
 |};
 
-export type StoreState = Record<StoreShape>;
+export type LeafState = Record<StateShape>;
 
-const initialState: StoreShape = {
+const initialState: StateShape = {
   postId: null,
   titleInput: null,
   isProcessing: false,

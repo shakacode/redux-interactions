@@ -3,17 +3,17 @@
 import api from '../../../api';
 
 import type { Thunk } from '../../types';
-import type { StoreState } from '../state';
-import type { StoreState as PostsStoreState } from '../../data/posts/types';
-import type { ActionHandler } from '../../types';
+import type { LeafState } from '../state';
+import type { LeafState as PostsLeafState } from '../../entities/posts/state';
+import type { ActionHandler, ActionHandlerAtLeaf } from '../../types';
 
-import { insuredTitleInputSelector, isProcessingSelector } from '../selectors/storeDataSelector';
-import { isSubmittableSelector } from '../selectors/isSubmittableSelector';
+import { getInsuredTitleInput, getProcessingStatus } from '../selectors/getLeafData';
+import { getSubmittableStatus } from '../selectors/getSubmittableStatus';
 
 
-const UPDATE_REQUESTED: 'POST_FORM # SERVER_STATE_UPDATE_REQUESTED' = 'POST_FORM # SERVER_STATE_UPDATE_REQUESTED';
-const UPDATE_SUCCEEDED: 'POST_FORM # SERVER_STATE_UPDATE_SUCCEEDED' = 'POST_FORM # SERVER_STATE_UPDATE_SUCCEEDED';
-const UPDATE_FAILED: 'POST_FORM # SERVER_STATE_UPDATE_FAILED' = 'POST_FORM # SERVER_STATE_UPDATE_FAILED';
+const UPDATE_REQUESTED: 'POST_FORM: SERVER_STATE_UPDATE_REQUESTED' = 'POST_FORM: SERVER_STATE_UPDATE_REQUESTED';
+const UPDATE_SUCCEEDED: 'POST_FORM: SERVER_STATE_UPDATE_SUCCEEDED' = 'POST_FORM: SERVER_STATE_UPDATE_SUCCEEDED';
+const UPDATE_FAILED: 'POST_FORM: SERVER_STATE_UPDATE_FAILED' = 'POST_FORM: SERVER_STATE_UPDATE_FAILED';
 
 type Payload = {| title: string |};
 
@@ -28,7 +28,7 @@ const requestAction = (): RequestAction => ({ type: UPDATE_REQUESTED });
 
 // Action handler
 type OnRequest = {
-  [typeof UPDATE_REQUESTED]: ActionHandler<StoreState, RequestAction>,
+  [typeof UPDATE_REQUESTED]: ActionHandler<LeafState, RequestAction>,
 };
 
 const onRequest: OnRequest = {
@@ -58,27 +58,28 @@ const successAction = (
 
 // Action handler -> local
 type OnSuccess = {
-  [typeof UPDATE_SUCCEEDED]: ActionHandler<StoreState, SuccessAction>,
+  [typeof UPDATE_SUCCEEDED]: [
+    ActionHandler<LeafState, SuccessAction>,
+    ActionHandlerAtLeaf<PostsLeafState, SuccessAction>,
+  ],
 };
 
 const onSuccess: OnSuccess = {
-  [UPDATE_SUCCEEDED]:
+  [UPDATE_SUCCEEDED]: [
+    // 1. reset ui state
     state =>
       state
         .set('titleInput', null)
         .set('isProcessing', false),
-};
 
-// Action handler -> data/postsStore: update entity in posts data store
-type UpdatePostOnEdit = {
-  [typeof UPDATE_SUCCEEDED]: ActionHandler<PostsStoreState, SuccessAction>,
-};
-
-const updatePostOnEdit: UpdatePostOnEdit = {
-  [UPDATE_SUCCEEDED]:
-    (state, { postId, nextServerData }) =>
-      // $FlowFixMe: Record methods inherited from Map aren't typed yet
-      state.mergeIn(['entities', postId], nextServerData),
+    {
+      leaf: ['entities', 'posts'],
+      reduce:
+        (state, { postId, nextServerData }) =>
+          // $FlowFixMe: Record mergeIn method
+          state.mergeIn(['entities', postId], nextServerData),
+    },
+  ],
 };
 
 
@@ -97,7 +98,7 @@ const failureAction = (error: Error): FailureAction => ({
 
 // Action handler
 type OnFailure = {
-  [typeof UPDATE_FAILED]: ActionHandler<StoreState, FailureAction>,
+  [typeof UPDATE_FAILED]: ActionHandler<LeafState, FailureAction>,
 };
 
 const onFailure: OnFailure = {
@@ -114,8 +115,8 @@ export const updateServerState =
   (postId: number): Thunk => (dispatch, getState) => {
     const state = getState();
 
-    const isSubmittable = isSubmittableSelector(state);
-    const isProcessing = isProcessingSelector(state);
+    const isSubmittable = getSubmittableStatus(state);
+    const isProcessing = getProcessingStatus(state);
 
     if (!isSubmittable || isProcessing) return;
 
@@ -123,7 +124,7 @@ export const updateServerState =
 
     // We're making sure that title input is not null above
     // But flow can't infer, so assuring flow (see `insuredTitleInputSelector`)
-    const nextServerData = { title: insuredTitleInputSelector(state) };
+    const nextServerData = { title: getInsuredTitleInput(state) };
 
     api
       .patchPost(postId, nextServerData)
@@ -145,5 +146,3 @@ export const onServerStateUpdate = {
   ...onSuccess,
   ...onFailure,
 };
-
-export { updatePostOnEdit };

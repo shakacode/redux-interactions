@@ -3,11 +3,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import reducers from './reducers';
+import tree from './tree';
 import DevTools from './DevTools';
 
 export default createStore(
-  reducers,
+  tree,
   compose(
     applyMiddleware(thunkMiddleware),
     DevTools.instrument(),

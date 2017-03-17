@@ -1,10 +1,10 @@
 /* @flow */
 
-import type { StoreState } from '../state';
+import type { LeafState } from '../state';
 import type { ActionHandler } from '../../types';
 
 
-const POST_SELECT: 'POST_FORM # POST_SELECT' = 'POST_FORM # POST_SELECT';
+const POST_SELECT: 'POST_FORM: POST_SELECT' = 'POST_FORM: POST_SELECT';
 
 // Action creator
 type Action = {|
@@ -20,7 +20,7 @@ export const selectPost = (postId: string): Action => ({
 
 // Action handler
 type OnPostSelect = {
-  [typeof POST_SELECT]: ActionHandler<StoreState, Action>,
+  [typeof POST_SELECT]: ActionHandler<LeafState, Action>,
 };
 
 export const onPostSelect: OnPostSelect = {
