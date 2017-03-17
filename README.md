@@ -1,9 +1,6 @@
 # redux-interactions
 
-+1 take on structuring React & Redux apps.
-
-## Why
-Treating UI as a set of interactions makes life easier.
+Thinking of UI in terms of interactions makes life easier.
 
 ## How it works
 Here is the simple form:      
@@ -101,6 +98,9 @@ export default {
 ```
 
 ## Examples
+
+> NOTE: Advanced examples are using [`redux-tree`](https://github.com/shakacode/redux-tree) now. Docs will be updated shortly.
+
 * **basic-interactions** [ [live](http://redux-basic-interactions.surge.sh) &middot; [source](./examples/basic-interactions) ]<br>
 Simple counter reimplemented with `interactions`.
 * **async-interactions** [ [live](http://redux-async-interactions.surge.sh) &middot; [source](./examples/async-interactions) ]<br>
@@ -109,6 +109,3 @@ The real world app example.
 Redux app typed w/ `flow`.
 * **saga-interactions** [ _coming soon_ ]<br>
 Works great for sagas too!
-
-## Trade-offs
-See [TRADEOFFS.md](./TRADEOFFS.md)
