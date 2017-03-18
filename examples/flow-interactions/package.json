@@ -1,0 +1,35 @@
+{
+  "name": "flow-interactions",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && cp CNAME build/",
+    "test": "react-scripts test --env=jsdom",
+    "flow": "flow",
+    "flow:up": "flow-typed update",
+    "deploy": "yarn run build && surge build/",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "flow-bin": "0.39.0",
+    "flow-typed": "2.0.0",
+    "react-scripts": "0.9.0",
+    "redux-devtools": "3.3.2",
+    "redux-devtools-dock-monitor": "1.1.1",
+    "redux-devtools-log-monitor": "1.2.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "immutable": "^3.8.1",
+    "normalizr": "^3.2.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "react-spinkit": "^2.0.0",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "redux-tree": "^0.3.2",
+    "reselect": "^2.5.4"
+  }
+}
