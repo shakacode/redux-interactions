@@ -12,7 +12,7 @@ There are two ways of thinking of about UI: in terms of **state** or in terms of
 ### State-based model
 This pattern is common in the Redux community. In this style of thinking, the building blocks of the app are **reducers**. Each reducer is tightly coupled to a specific part of the state. It decides how to respond to actions from the outside. It has full control over its part of the state, and that’s its only concern.
 
-The main take away here is that **state is the smart and reactive essence**.
+The main take away here is that **state is smart**.
 
 
 ### Interactions-based model
@@ -46,7 +46,7 @@ const requestAction = postId => ({
 const onRequest = {
   POST_DELETE_REQUESTED:
     (state, { postId }) =>
-      state.update('processingPosts', processingPosts => processingPosts.add(postId)),
+      state.update('processingPosts', postIds => postIds.add(postId)),
 };
 ```
 
@@ -69,7 +69,7 @@ const onSuccess = {
   POST_DELETE_SUCCEEDED: [
     // 1. hide spinner
     (state, { postId }) =>
-      state.update('processingPosts', processingPosts => processingPosts.delete(postId)),
+      state.update('processingPosts', postIds => postIds.delete(postId)),
 
     // 2. remove post entity
     {
